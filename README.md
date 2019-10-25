@@ -1,2 +1,1 @@
-# SalesforceProjet4
-Projet 4 du parcours Développeur Salesforce
+Sample project for OpenClassroom's fundamentals of Java
