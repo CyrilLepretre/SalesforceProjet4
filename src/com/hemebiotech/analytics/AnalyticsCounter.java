@@ -1,17 +1,24 @@
 package com.hemebiotech.analytics;
-import java.util.List;
 
+/**
+ * <b>Main class to launch the processing</b>
+ *
+ * @author Cyril Lepretre
+ * @version 1.0
+ */
 public class AnalyticsCounter {
 	public static void main(String args[]){
-		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
-		List<String> lines = reader.getSymptoms();
-		Symptoms symptoms = new Symptoms(lines);
-		//analyticsCounter.printSymptoms();
-		WriteSymptomFileFromData writer = new WriteSymptomFileFromData();
-		if (writer.writeSymptoms(symptoms.getSymptomsMap(),"result.out")){
-			System.out.println("Success");
-		} else {
-			System.out.println("Error");
+		ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
+		ISymptomWriter writer = new WriteSymptomFileFromData("result.out");
+		SymptomsCounter symptomsCounter = new SymptomsCounter();
+		try{
+			if (symptomsCounter.process(reader, writer)){
+				System.out.println("Successful");
+			} else{
+				System.out.println("Error");
+			}
+		} catch (Exception e) {
+			System.out.println("Error - " + e);
 		}
 	}
 }
